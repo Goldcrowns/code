@@ -1,58 +1,218 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Sayfam</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            background-color: #ffffff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h1 {
-            color: #2c3e50;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mini Araç Kutusu</title>
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f6f4ef; --card:#fffdf8; --ink:#1d1b16; --muted:#6c675c;
+  --line:#e2ddd1; --accent:#b4512c; --accent-soft:#f2e3dc;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#15140f; --card:#1f1d18; --ink:#f0ece2; --muted:#9a948a;
+    --line:#332f28; --accent:#e08359; --accent-soft:#332019;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#15140f; --card:#1f1d18; --ink:#f0ece2; --muted:#9a948a;
+  --line:#332f28; --accent:#e08359; --accent-soft:#332019;
+}
+*,*::before,*::after{box-sizing:inherit}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"Georgia","Times New Roman",serif; line-height:1.6;
+}
+.wrap{max-width:780px;margin:0 auto;padding:28px 18px 60px}
+header{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}
+h1{font-size:1.9rem;margin:0;letter-spacing:-.02em}
+.sub{color:var(--muted);font-size:.92rem;margin:2px 0 22px}
+button{font:inherit;cursor:pointer;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px}
+button:hover{border-color:var(--accent)}
+.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+nav button[aria-selected="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+h2{font-size:1.15rem;margin:0 0 4px}
+.hint{color:var(--muted);font-size:.85rem;margin:0 0 16px}
+input,select,textarea{font:inherit;width:100%;padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.row>*{flex:1 1 140px}
+.row>button{flex:0 0 auto}
+ul{list-style:none;padding:0;margin:16px 0 0}
+li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+li:last-child{border-bottom:0}
+li.done span{text-decoration:line-through;color:var(--muted)}
+li span{flex:1}
+.x{border:0;background:none;color:var(--muted);padding:2px 6px;font-size:1.1rem}
+.x:hover{color:var(--accent)}
+.clock{font-size:4rem;text-align:center;margin:18px 0 10px;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.center{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.out{margin-top:18px;padding:14px;background:var(--accent-soft);border-radius:10px;font-size:1.25rem;text-align:center}
+.empty{color:var(--muted);font-style:italic;padding:14px 0}
+footer{color:var(--muted);font-size:.8rem;text-align:center;margin-top:28px}
+</style>
 </head>
 <body>
+<div class="wrap">
+<header>
+  <h1>Mini Araç Kutusu</h1>
+  <button id="theme">🌓 Tema</button>
+</header>
+<p class="sub">Üç küçük araç, tek sayfa, internet bağlantısı gerekmez.</p>
 
-    <div class="container">
-        <h1>Merhaba, Dünya!</h1>
-        <p>Bu, basit bir HTML, CSS ve JavaScript örneğidir.</p>
-        <button onclick="mesajGoster()">Tıkla</button>
-    </div>
+<nav role="tablist">
+  <button role="tab" data-tab="gorev" aria-selected="true">Görevler</button>
+  <button role="tab" data-tab="pomodoro" aria-selected="false">Pomodoro</button>
+  <button role="tab" data-tab="cevir" aria-selected="false">Çevirici</button>
+</nav>
 
-    <script>
-        function mesajGoster() {
-            alert('Butona başarıyla tıkladınız!');
-        }
-    </script>
+<section class="card" id="gorev">
+  <h2>Yapılacaklar</h2>
+  <p class="hint">Liste tarayıcında saklanır, sayfayı kapatınca kaybolmaz.</p>
+  <div class="row">
+    <input id="gorevInput" placeholder="Ne yapılacak?" maxlength="120">
+    <button class="primary" id="gorevEkle">Ekle</button>
+  </div>
+  <ul id="gorevListe"></ul>
+</section>
 
+<section class="card" id="pomodoro" hidden>
+  <h2>Pomodoro</h2>
+  <p class="hint">25 dakika odaklan, 5 dakika dinlen.</p>
+  <div class="clock" id="saat">25:00</div>
+  <div class="center">
+    <button class="primary" id="baslat">Başlat</button>
+    <button id="sifirla">Sıfırla</button>
+    <button id="mod25">25 dk</button>
+    <button id="mod5">5 dk</button>
+  </div>
+</section>
+
+<section class="card" id="cevir" hidden>
+  <h2>Birim Çevirici</h2>
+  <p class="hint">Uzunluk, ağırlık ve sıcaklık.</p>
+  <div class="row">
+    <input id="deger" type="number" value="1" step="any">
+    <select id="birimA"></select>
+    <select id="birimB"></select>
+  </div>
+  <div class="row" style="margin-top:10px">
+    <select id="tur">
+      <option value="uzunluk">Uzunluk</option>
+      <option value="agirlik">Ağırlık</option>
+      <option value="sicaklik">Sıcaklık</option>
+    </select>
+  </div>
+  <div class="out" id="sonuc">—</div>
+</section>
+
+<footer>Tek dosya · saf HTML, CSS ve JavaScript</footer>
+</div>
+
+<script>
+// --- tema ---
+const kok=document.documentElement;
+document.getElementById('theme').onclick=()=>{
+  const koyu=getComputedStyle(document.body).backgroundColor==='rgb(21, 20, 15)';
+  kok.dataset.theme=koyu?'light':'dark';
+  try{localStorage.setItem('tema',kok.dataset.theme)}catch(e){}
+};
+try{const t=localStorage.getItem('tema'); if(t)kok.dataset.theme=t;}catch(e){}
+
+// --- sekmeler ---
+document.querySelectorAll('nav button').forEach(b=>{
+  b.onclick=()=>{
+    document.querySelectorAll('nav button').forEach(x=>x.setAttribute('aria-selected',x===b));
+    ['gorev','pomodoro','cevir'].forEach(id=>document.getElementById(id).hidden=(id!==b.dataset.tab));
+  };
+});
+
+// --- görevler ---
+let gorevler=[];
+try{gorevler=JSON.parse(localStorage.getItem('gorevler')||'[]')}catch(e){gorevler=[]}
+const liste=document.getElementById('gorevListe');
+function kaydet(){try{localStorage.setItem('gorevler',JSON.stringify(gorevler))}catch(e){}}
+function ciz(){
+  liste.innerHTML='';
+  if(!gorevler.length){liste.innerHTML='<li class="empty">Henüz görev yok.</li>';return}
+  gorevler.forEach((g,i)=>{
+    const li=document.createElement('li');
+    if(g.bitti)li.className='done';
+    const cb=document.createElement('input');cb.type='checkbox';cb.checked=g.bitti;cb.style.flex='0 0 auto';cb.style.width='18px';
+    cb.onchange=()=>{g.bitti=cb.checked;kaydet();ciz()};
+    const s=document.createElement('span');s.textContent=g.metin;
+    const d=document.createElement('button');d.className='x';d.textContent='×';
+    d.onclick=()=>{gorevler.splice(i,1);kaydet();ciz()};
+    li.append(cb,s,d);liste.appendChild(li);
+  });
+}
+function ekle(){
+  const i=document.getElementById('gorevInput');
+  if(!i.value.trim())return;
+  gorevler.push({metin:i.value.trim(),bitti:false});i.value='';kaydet();ciz();
+}
+document.getElementById('gorevEkle').onclick=ekle;
+document.getElementById('gorevInput').addEventListener('keydown',e=>{if(e.key==='Enter')ekle()});
+ciz();
+
+// --- pomodoro ---
+let kalan=1500,sayac=null;
+const saat=document.getElementById('saat'),bas=document.getElementById('baslat');
+function goster(){
+  const d=String(Math.floor(kalan/60)).padStart(2,'0'),s=String(kalan%60).padStart(2,'0');
+  saat.textContent=d+':'+s;document.title=sayac?d+':'+s+' · Pomodoro':'Mini Araç Kutusu';
+}
+bas.onclick=()=>{
+  if(sayac){clearInterval(sayac);sayac=null;bas.textContent='Devam';}
+  else{bas.textContent='Duraklat';
+    sayac=setInterval(()=>{
+      kalan--;goster();
+      if(kalan<=0){clearInterval(sayac);sayac=null;bas.textContent='Başlat';saat.textContent='Bitti!'}
+    },1000);}
+  goster();
+};
+function ayarla(n){kalan=n;clearInterval(sayac);sayac=null;bas.textContent='Başlat';goster()}
+document.getElementById('sifirla').onclick=()=>ayarla(1500);
+document.getElementById('mod25').onclick=()=>ayarla(1500);
+document.getElementById('mod5').onclick=()=>ayarla(300);
+
+// --- çevirici ---
+const birimler={
+  uzunluk:{'Metre':1,'Kilometre':1000,'Santimetre':0.01,'Mil':1609.34,'Fit':0.3048,'İnç':0.0254},
+  agirlik:{'Kilogram':1,'Gram':0.001,'Ton':1000,'Pound':0.453592,'Ons':0.0283495},
+  sicaklik:{'Celsius':1,'Fahrenheit':1,'Kelvin':1}
+};
+const tur=document.getElementById('tur'),bA=document.getElementById('birimA'),bB=document.getElementById('birimB');
+function doldur(){
+  const k=Object.keys(birimler[tur.value]);
+  [bA,bB].forEach((sel,idx)=>{
+    sel.innerHTML=k.map(x=>`<option>${x}</option>`).join('');
+    sel.selectedIndex=idx===1&&k.length>1?1:0;
+  });
+  hesapla();
+}
+function sicaklikCevir(v,a,b){
+  const c=a==='Celsius'?v:a==='Fahrenheit'?(v-32)*5/9:v-273.15;
+  return b==='Celsius'?c:b==='Fahrenheit'?c*9/5+32:c+273.15;
+}
+function hesapla(){
+  const v=parseFloat(document.getElementById('deger').value);
+  const out=document.getElementById('sonuc');
+  if(isNaN(v)){out.textContent='—';return}
+  let r;
+  if(tur.value==='sicaklik')r=sicaklikCevir(v,bA.value,bB.value);
+  else r=v*birimler[tur.value][bA.value]/birimler[tur.value][bB.value];
+  out.textContent=`${v} ${bA.value} = ${Math.round(r*10000)/10000} ${bB.value}`;
+}
+tur.onchange=doldur;
+[bA,bB,document.getElementById('deger')].forEach(el=>el.oninput=hesapla);
+[bA,bB].forEach(el=>el.onchange=hesapla);
+doldur();
+</script>
 </body>
 </html>
